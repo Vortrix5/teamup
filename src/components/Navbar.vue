@@ -3,13 +3,13 @@
     <v-toolbar-title>TeamUp</v-toolbar-title>
     <v-spacer></v-spacer>
       <v-toolbar-items class="d-flex align-center">
-        <v-btn v-for="item in centerItems" :key="item.text" text class="gc-5" >
+        <v-btn v-for="item in centerItems" :key="item.text" text class="gc-4" >
           <v-icon left class="mr-2">{{ item.icon }}</v-icon>
           {{ item.text }}
         </v-btn>
       </v-toolbar-items>
     <v-toolbar-items class="justify-end">
-      <v-btn text class="gc-5">
+      <v-btn text class="gc-4" href="/login">
         <v-icon left class="mr-2">mdi-account</v-icon>
         Login
       </v-btn>
