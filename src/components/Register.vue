@@ -6,8 +6,8 @@
       <v-text-field variant="outlined" v-model="name" label="Name"></v-text-field>
       <v-text-field variant="outlined" v-model="email" label="Email Address"></v-text-field>
       <v-text-field variant="outlined" v-model="username" label="Username"></v-text-field>
-      <v-text-field variant="outlined" v-model="password" label="Password"></v-text-field>
-      <v-text-field variant="outlined" v-model="confirmPassword" label="Confirm Password"></v-text-field>
+      <v-text-field variant="outlined"  type="password" v-model="password" label="Password"></v-text-field>
+      <v-text-field variant="outlined" type="password" v-model="confirmPassword" label="Confirm Password"></v-text-field>
 
       <p v-if="errorMessage" class="text-body-2 font-weight-regular" style="color:red">{{ errorMessage }}</p>
 
