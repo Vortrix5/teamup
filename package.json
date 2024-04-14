@@ -10,7 +10,10 @@
   "dependencies": {
     "@mdi/font": "7.0.96",
     "core-js": "^3.34.0",
+    "firebase": "^10.11.0",
+    "firebaseui": "^6.1.0",
     "roboto-fontface": "*",
+    "uuidv4": "^6.2.13",
     "vue": "^3.3.0",
     "vuetify": "^3.0.0"
   },

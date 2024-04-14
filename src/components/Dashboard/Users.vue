@@ -65,7 +65,7 @@
           ],
         }
       },
-  
+
       computed: {
         virtualBoats() {
           const nbr = this.boats.length

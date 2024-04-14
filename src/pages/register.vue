@@ -6,7 +6,7 @@
 
 
 <script setup>
-import Register from "@/components/Register.vue";
+import Register from "@/components/Auth/Register.vue";
 </script>
 
 <style scoped>

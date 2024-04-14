@@ -1,6 +1,4 @@
 <template>
-  <v-app>
-    <v-container color="primary">
       <v-footer padle>
         <v-card flat class="text-center">
           <v-card-text style="margin:10px;">
@@ -64,8 +62,6 @@
           </v-row>
         </v-card>
       </v-footer>
-    </v-container>
-  </v-app>
 </template>
 
 <script>

@@ -7,7 +7,7 @@
 
 
 <script setup>
-import Login from "@/components/Login.vue";
+import Login from "@/components/Auth/Login.vue";
 </script>
 
 <style scoped>
