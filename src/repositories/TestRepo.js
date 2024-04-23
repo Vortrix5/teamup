@@ -1,6 +1,19 @@
-import { getFirestore, doc, setDoc, collection, getDocs, addDoc, deleteDoc, getDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  getDoc,
+  query,
+  where
+} from "firebase/firestore";
 import {app} from "@/firebase";
 import Question from "@/models/question.js";
+import {getUserById} from "@/repositories/UserRepo";
+import { session } from "@/repositories/UserRepo";
 
 const db = getFirestore(app);
 
@@ -24,6 +37,7 @@ export class TestRepo {
     console.log("Test updated in Firestore");
   }
 
+
   static async addQuestion(text, type) {
     const newQuestion = new Question(text, type);
     this.questions.push(newQuestion);
@@ -33,5 +47,36 @@ export class TestRepo {
   static async removeQuestion(index) {
     this.questions.splice(index, 1);
     this.updatePersonalityTest(this.questions);
+  }
+
+  static async updateUserTest(userId, test) {
+    const q = query(collection(db, "users"), where("id", "==", userId));
+    const querySnapshot = await getDocs(q);
+    let docId = null;
+    querySnapshot.forEach((doc) => {
+      docId = doc.id;
+    });
+
+    if (docId) {
+      const docRef = doc(db, "users", docId);
+      await setDoc(docRef, { personalityTest: JSON.parse(JSON.stringify(test)), testSubmitted: true }, { merge: true }); // Add testSubmitted: true
+      const updatedUser = await getUserById(userId);
+      session.login(updatedUser);
+      console.log("User test updated in Firestore");
+    } else {
+      console.log("No user found with the given userId");
+    }
+  }
+  static async getTestResults() {
+    const q = collection(db, "users");
+    const querySnapshot = await getDocs(q);
+    let results = [];
+    querySnapshot.forEach((doc) => {
+      results.push(doc.data().personalityTest);
+    });
+    return results;
+  }
+  static getQuestionById(id) {
+    return this.questions.find((question) => question.id === id);
   }
 }

@@ -1,25 +1,6 @@
 <template>
   <v-container>
-    <div class="pa-4 text-center">
-      <v-dialog max-width="800">
-        <template v-slot:activator="{ props: activatorProps }">
-          <v-btn
-            v-bind="activatorProps"
-            text="Add Course"
-            color="primary"
-          ></v-btn>
-        </template>
-
-        <template v-slot:default="{  }">
-          <v-card title="Add A New Course">
-            <template v-slot:text>
-              <AddCourseModal/>
-            </template>
-          </v-card>
-        </template>
-      </v-dialog>
-    </div>
-
+    <AddCourseModal v-if="getCurrentUser().role === 'admin' "/>
     <v-row style="padding: 10px; margin: 10px;">
       <v-col md="4" v-for="(course, index) in courses" :key="index">
         <v-card style="max-height: 600px">
@@ -40,7 +21,7 @@
               </v-list>
             </v-menu>
           </v-card-actions>
-          <v-img :src="course.imageLink" height="300px"></v-img>
+          <v-img cover :lazy-src="course.imageLink" height="300px"></v-img>
           <v-card-title>
             {{ course.name }}
           </v-card-title>
@@ -60,6 +41,7 @@
 import {onMounted, ref} from 'vue';
 import {CourseRepo} from "@/repositories/CourseRepo";
 import AddCourseModal from "@/components/Dashboard/AddCourseModal.vue";
+import {getCurrentUser} from "@/repositories/UserRepo";
 
 const courses = ref([]);
 

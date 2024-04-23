@@ -5,11 +5,13 @@ import Course from "@/models/course.js";
 const db = getFirestore(app);
 
 export class CourseRepo {
+  static courses = reactive([]);
   static async addCourse(name, link, tags, imageLink) {
     const newCourse = new Course(name, link, tags, imageLink);
     try {
       const docRef = await addDoc(collection(db, "courses"), JSON.parse(JSON.stringify(newCourse)));
       console.log("Course added to Firestore with ID: ", docRef.id);
+      this.courses.push(newCourse);
     } catch (error) {
       console.error("Error adding course to Firestore: ", error);
     }
@@ -36,10 +38,9 @@ export class CourseRepo {
 
   static async getCourses() {
     const querySnapshot = await getDocs(collection(db, "courses"));
-    const courses = [];
     querySnapshot.forEach((doc) => {
-      courses.push(doc.data());
+      this.courses.push(doc.data());
     });
-    return courses;
+    return this.courses;
   }
 }

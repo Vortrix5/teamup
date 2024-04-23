@@ -4,7 +4,7 @@
     <v-form fast-fail @submit.prevent="login">
       <v-text-field variant="outlined" v-model="email" label="Email Address"></v-text-field>
       <v-text-field variant="outlined" type="password" v-model="password" label="Password"></v-text-field>
-      <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
+      <span @click="router.push('/reset')" class="text-body-2 font-weight-regular link">Forgot Password?</span>
       <v-btn type="submit" color="primary" block class="mt-3 mb-3">Sign in</v-btn>
     </v-form>
     <div class="mt-2">

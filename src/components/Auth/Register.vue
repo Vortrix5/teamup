@@ -73,7 +73,7 @@ const register = async () => {
     return false;
   }
 
-  const newUser = new User(null, firstName.value, lastName.value, email.value, password.value, 'manager');
+  const newUser = new User(firstName.value, lastName.value, email.value, password.value, 'manager', null);
   await addUser(newUser);
   snackbarText.value = 'Sign up successful, please login to continue';
   snackbarColor.value = 'success';

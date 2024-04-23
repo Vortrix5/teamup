@@ -1,29 +1,30 @@
 import { reactive } from "vue";
 import Session from "@/models/session";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, doc, setDoc, query, where, getDocs, collection } from "firebase/firestore";
+import {getFirestore, doc, setDoc, query, where, getDocs, collection} from "firebase/firestore";
 import {app} from "@/firebase";
 
-const session = new Session();
+
+export const session = new Session();
 const users = reactive([]); // Reactive store for users
 
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export function addUser(user) {
+export async function addUser(user) {
   return createUserWithEmailAndPassword(auth, user.email, user.password)
     .then((userCredential) => {
-      // Add a new document in collection "users"
       return setDoc(doc(db, "users", userCredential.user.uid), {
+        id: user.id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
         role: user.role,
+        managerID: user.managerID || null,
       })
-        .then(() => {
+        .then(async () => {
           console.log("User added to Firestore");
-          session.login(user);
-          users.push(user); // Add user to local store
+          users.push(user);
         })
         .catch((error) => {
           console.error("Error adding user to Firestore: ", error);
@@ -37,7 +38,6 @@ export function addUser(user) {
 export async function findUserByEmailAndPassword(email, password) {
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    // Signed in
     const q = query(collection(db, "users"), where("email", "==", email));
     const querySnapshot = await getDocs(q);
     let user = null;
@@ -72,6 +72,19 @@ export function logout() {
   session.logout();
 }
 
-export function getUsers() {
-  return users; // Return local store of users
+export async function getAllUsers() {
+  const querySnapshot = await getDocs(collection(db, "users"));
+  const users = querySnapshot.docs.map(doc => doc.data());
+  console.log(users)
+  return users;
+}
+
+export async function getUserById(id) {
+  const q = query(collection(db, "users"), where("id", "==", id));
+  const userDoc = await getDocs(q);
+  let user = null;
+  userDoc.forEach((doc) => {
+    user = doc.data();
+  });
+  return user;
 }

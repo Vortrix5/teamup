@@ -1,7 +1,7 @@
 <template>
   <Navbar />
     <v-divider/>
-  <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" fill-height>
+  <v-parallax lazy-src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" fill-height>
             <v-card-text justify="center container">
               <h1>
 

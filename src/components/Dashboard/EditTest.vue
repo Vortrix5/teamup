@@ -6,14 +6,15 @@
       <v-text-field v-model="test.name" label="Test Name" readonly />
 
       <v-container v-for="(question, index) in test.questions" :key="index">
-        <v-text-field :label="'Question Text'" v-model="question.text" />
-        <v-select
-          label="Question Type"
-          v-model="question.type"
-          :items="questionTypes"
-        />
-        <v-btn @click="removeQuestion(index)">Remove Question</v-btn>
+          <v-text-field :label="'Question Text'" v-model="question.text" />
+          <v-select
+            label="Question Type"
+            v-model="question.type"
+            :items="questionTypes"
+          />
+          <v-btn @click="removeQuestion(index)">Remove Question</v-btn>
       </v-container>
+
 
       <v-container>
         <v-layout justify-center>
@@ -31,6 +32,7 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import {TestRepo} from "@/repositories/TestRepo";
+
 
 const test = ref({
   name: 'Big Five Personality Test',

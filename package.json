@@ -9,12 +9,16 @@
   },
   "dependencies": {
     "@mdi/font": "7.0.96",
+    "chart.js": "^4.4.2",
     "core-js": "^3.34.0",
+    "emailjs-com": "^3.2.0",
     "firebase": "^10.11.0",
     "firebaseui": "^6.1.0",
     "roboto-fontface": "*",
     "uuidv4": "^6.2.13",
     "vue": "^3.3.0",
+    "vue-chartjs": "^5.3.1",
+    "vuedraggable": "^4.1.0",
     "vuetify": "^3.0.0"
   },
   "devDependencies": {
