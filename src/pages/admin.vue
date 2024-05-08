@@ -24,8 +24,6 @@
                      @click="loadComponent('EditTest')"></v-list-item>
         <v-list-item prepend-icon="mdi-book-open-variant" title="Courses" value="courses"
                      @click="loadComponent('Courses')"></v-list-item>
-        <!--<v-list-item prepend-icon="mdi-finance" title="Stats" value="Stats"
-                     @click="loadComponent('Results')"></v-list-item>-->
       </v-list>
     </v-navigation-drawer>
 
@@ -38,12 +36,11 @@
 </template>
 
 <script>
-import Users from "@/components/Dashboard/Users.vue";
+import Users from "@/components/Dashboard/Shared/Users.vue";
 import {getCurrentUser} from "@/repositories/UserRepo";
-import Courses from "@/components/Dashboard/Courses.vue";
-//import Earnings from "@/components/Dashboard/Results.vue";
-import EditTest from "@/components/Dashboard/EditTest.vue";
-import Results from "@/components/Dashboard/Results/Results.vue";
+import Courses from "@/components/Dashboard/Shared/Courses.vue";
+import EditTest from "@/components/Dashboard/Admin/EditTest.vue";
+import Results from "@/components/Dashboard/Employee/Results/Results.vue";
 
 export default {
 

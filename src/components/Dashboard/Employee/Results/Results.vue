@@ -53,6 +53,17 @@
 
       <v-card style="margin: 20px; padding: 10px; max-height: 500px;">
         <v-card-title style="text-align: center">
+          Your personality type is: <span style="color: green; font-size: 20px">{{ personalityTypeName }}</span>
+        </v-card-title>
+        <v-divider
+          style="margin-bottom: 10px"
+        ></v-divider>
+        <v-card-text>{{ personalityTypeDescription}}
+        </v-card-text>
+      </v-card>
+
+      <v-card style="margin: 20px; padding: 10px; max-height: 500px;">
+        <v-card-title style="text-align: center">
           Personality Traits
         </v-card-title>
         <v-divider
@@ -122,9 +133,8 @@ import {
 } from 'chart.js'
 import {Radar} from 'vue-chartjs'
 import {data, options} from "./chartConfig.js";
-import {getCurrentUser, getUserById} from '@/repositories/UserRepo';
+import {getCurrentUser} from '@/repositories/UserRepo';
 import * as chartConfig from './chartConfig.js'
-import PersonalityTest from "@/models/personalityTest";
 
 ChartJS.register(
   RadialLinearScale,
@@ -156,6 +166,9 @@ export default {
       conscientiousnessScore: 0,
       neuroticismScore: 0,
       opennessScore: 0,
+      personalityTypeName: '',
+      personalityTypeDescription: ''
+
     }
   },
   async beforeMount() {
@@ -164,19 +177,22 @@ export default {
 
   methods: {
     async fetchData() {
+      const personliatyTypeDescriptions = {
+        "The Trailblazer": "Trailblazers are curious minds who crave new experiences and knowledge. They're always up for a challenge and meticulously plan their adventures, whether it's mastering a new skill, traveling to uncharted territories, or diving deep into a complex subject. They thrive on learning and sharing their discoveries with the world, inspiring others to push boundaries.",
+        "The Diplomat": "Diplomats are natural connectors who build bridges between people. They possess a genuine warmth and a knack for understanding different perspectives. They excel at resolving conflicts peacefully and fostering collaboration.  Imagine a Diplomat hosting a dinner party where everyone feels comfortable and interesting conversations flow effortlessly.",
+        "The Maverick": "Mavericks are fiercely independent free spirits who march to the beat of their own drum. They're brimming with creative ideas and an aversion to following the rules. While not fans of rigid structure, they're highly motivated by their own passions and can achieve remarkable things with their bursts of focused energy. Think of a Maverick as the artist who breaks away from traditional styles to forge their own unique path.",
+        "The Guardian": "Guardians are dependable and selfless individuals who put the needs of others first. They're organized, reliable, and create a sense of stability for those around them.  Whether it's volunteering for a cause they care about or meticulously planning a family reunion, Guardians bring a sense of order and care to every situation.",
+        "The Analyst": "Analysts are logical thinkers who approach life with a calm and rational mind. They value facts, data, and critical thinking. They excel at problem-solving and strategizing, meticulously analyzing situations before taking action. Imagine an Analyst as the chess player who carefully considers every move before making their next strategic decision."
+      }
       const currentUser = getCurrentUser();
-      const user = await getUserById(currentUser.id);
-      const personalityTest = new PersonalityTest();
-      personalityTest.results = user.personalityTest;
-      const scores = personalityTest.calculateScores();
-      this.data.datasets[0].data = Object.values(scores);
-      console.log(this.data.datasets[0].data)
-      // Update trait scores
-      this.extraversionScore = scores.extraversion;
-      this.agreeablenessScore = scores.agreeableness;
-      this.conscientiousnessScore = scores.conscientiousness;
-      this.neuroticismScore = scores.neuroticism;
-      this.opennessScore = scores.openness;
+      this.data.datasets[0].data = Object.values(currentUser.scores);
+      this.extraversionScore = currentUser.scores.Extraversion;
+      this.agreeablenessScore = currentUser.scores.Agreeableness;
+      this.conscientiousnessScore = currentUser.scores.Conscientiousness;
+      this.neuroticismScore = currentUser.scores.Neuroticism;
+      this.opennessScore = currentUser.scores.Openness;
+      this.personalityTypeName = currentUser.personalityType;
+      this.personalityTypeDescription = personliatyTypeDescriptions[currentUser.personalityType];
     }
   }
 }

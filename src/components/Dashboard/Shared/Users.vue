@@ -14,15 +14,16 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import { getAllUsers, getCurrentUser} from "@/repositories/UserRepo";
-import AddUserModal from "@/components/Dashboard/AddUserModal.vue";
+import AddUserModal from "@/components/Dashboard/Shared/AddUserModal.vue";
 
 const users = ref([]);
 const headers = reactive([
-  { title: 'ID', value: 'id' },
-  { title: 'First Name', value: 'firstName' },
-  { title: 'Last Name', value: 'lastName' },
-  { title: 'E-mail', value: 'email' },
-  { title: 'Role', value: 'role' },
+  { title: 'ID', value: 'id'},
+  { title: 'First Name', value: 'firstName'},
+  { title: 'Last Name', value: 'lastName'},
+  { title: 'E-mail', value: 'email'},
+  { title: 'Role', value: 'role'},
+  {title: 'Personality Type', value: 'personalityType'},
 ]);
 
 onMounted(async () => {

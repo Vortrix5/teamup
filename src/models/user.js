@@ -11,6 +11,8 @@ export default class User {
     this.role = role;
     this.managerID = managerID;
     this.personalityTest = new PersonalityTest();
+    this.scores = {};
+    this.personalityType = "";
     this.testSubmitted = false;
   }
 

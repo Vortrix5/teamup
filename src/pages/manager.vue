@@ -19,8 +19,6 @@
         <v-list density="compact" nav>
           <v-list-item prepend-icon="mdi-account-multiple" title="Employees" value="employees" @click="loadComponent('Users')"></v-list-item>
           <v-list-item prepend-icon="mdi-book-open-variant" title="Courses" value="courses" @click="loadComponent('Courses')"></v-list-item>
-          <v-list-item prepend-icon="mdi-finance" title="Stats" value="Stats"
-                       @click="loadComponent('Results')"></v-list-item>
         </v-list>
       </v-navigation-drawer>
 
@@ -33,10 +31,9 @@
 
 <script>
 
-import Users from "@/components/Dashboard/Users.vue";
-import Courses from "@/components/Dashboard/Courses.vue";
+import Users from "@/components/Dashboard/Shared/Users.vue";
+import Courses from "@/components/Dashboard/Shared/Courses.vue";
 import {getCurrentUser} from "@/repositories/UserRepo";
-import Results from "@/components/Dashboard/Results/Results.vue";
 
 export default{
 
@@ -53,7 +50,6 @@ export default{
   components: {
     Users,
     Courses,
-    Results
   },
   methods: {
     loadComponent(comp) {

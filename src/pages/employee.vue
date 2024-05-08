@@ -19,7 +19,7 @@
                      @click="loadComponent('TestForm')"></v-list-item>
         <v-list-item prepend-icon="mdi-book-open-variant" title="Courses" value="courses"
                      @click="loadComponent('Courses')"></v-list-item>
-        <v-list-item prepend-icon="mdi-finance" title="Stats" value="Stats"
+        <v-list-item prepend-icon="mdi-finance" title="Results" value="Stats"
                      @click="loadComponent('Results')"></v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -32,16 +32,16 @@
 </template>
 
 <script>
-import Courses from "@/components/Dashboard/Courses.vue";
+import Courses from "@/components/Dashboard/Shared/Courses.vue";
 import {getCurrentUser} from "@/repositories/UserRepo";
-import TestForm from "@/components/Dashboard/TestForm.vue";
-import Results from "@/components/Dashboard/Results/Results.vue";
+import TestForm from "@/components/Dashboard/Employee/TestForm.vue";
+import Results from "@/components/Dashboard/Employee/Results/Results.vue";
 
 export default {
 
   data() {
     return {
-      actualComponent: Results,
+      actualComponent: TestForm,
     };
   },
   computed: {

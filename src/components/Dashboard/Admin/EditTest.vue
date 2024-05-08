@@ -3,16 +3,21 @@
     <v-container>
       <h1>Edit Test</h1>
       <br>
-      <v-text-field v-model="test.name" label="Test Name" readonly />
+      <v-text-field v-model="test.name" label="Test Name" readonly/>
 
       <v-container v-for="(question, index) in test.questions" :key="index">
-          <v-text-field :label="'Question Text'" v-model="question.text" />
-          <v-select
-            label="Question Type"
-            v-model="question.type"
-            :items="questionTypes"
-          />
-          <v-btn @click="removeQuestion(index)">Remove Question</v-btn>
+        <v-text-field :label="'Question Text'" v-model="question.text"/>
+        <v-select
+          label="Question Type"
+          v-model="question.type"
+          :items="questionTypes"
+        />
+        <v-select
+          label="Trait Adder"
+          v-model="question.add"
+          :items="addBool"
+        />
+        <v-btn @click="removeQuestion(index)">Remove Question</v-btn>
       </v-container>
 
 
@@ -42,9 +47,14 @@ const test = ref({
 const questionTypes = ref([
   'Extraversion',
   'Agreeableness',
-  'Openness',
   'Conscientiousness',
   'Neuroticism',
+  'Openness',
+])
+
+const addBool = ref([
+  'True',
+  'False',
 ])
 
 const snackbar = ref(false);
@@ -71,8 +81,8 @@ const removeQuestion = async index => {
 }
 
 const addQuestion = async () => {
-  const newQuestion = { text: '', type: '' };
-  await TestRepo.addQuestion(newQuestion.text, newQuestion.type);
+  const newQuestion = {text: '', type: '', add: ''};
+  await TestRepo.addQuestion(newQuestion.text, newQuestion.type, newQuestion.add);
   test.value.questions = await TestRepo.getPersonalityTest();
 }
 </script>

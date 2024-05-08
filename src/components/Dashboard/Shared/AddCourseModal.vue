@@ -48,11 +48,11 @@ const courseLink = ref('')
 const imageLink = ref('')
 const tags = ref([])
 const tagOptions = ref([
-  'Extraversion',
-  'Agreeableness',
-  'Openness',
-  'Conscientiousness',
-  'Neuroticism',
+  'The Trailblazer',
+  'The Diplomat',
+  'The Maverick',
+  'The Guardian',
+  'The Analyst',
 ])
 
 const snackbar = ref(false);

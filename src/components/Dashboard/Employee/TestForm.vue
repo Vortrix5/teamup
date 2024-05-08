@@ -35,7 +35,7 @@
 
 <script setup>
 import { ref, onMounted, computed} from 'vue';import { TestRepo } from "@/repositories/TestRepo";
-import { getCurrentUser } from "@/repositories/UserRepo";
+import {getCurrentUser, session, updateUser} from "@/repositories/UserRepo";
 import User from "@/models/user";
 
 const QUESTIONS_PER_STEP = 3;
@@ -74,12 +74,20 @@ const submitTest = async () => {
   for (const question of questions.value) {
     currentUser.addTestResult(question.id, answers.value[question.id]);
   }
-  await TestRepo.updateUserTest(currentUser.id, currentUser.personalityTest);
+
+  const { scores, personalityType } = await currentUser.getTestScores();
+  currentUser.personalityType = personalityType;
+  currentUser.scores = scores;
+  await TestRepo.updateUserTest(currentUser.id, currentUser.personalityTest, personalityType, scores);
+
   currentUser.testSubmitted = true;
   testSubmitted.value = true;
   snackbarText.value = "Test submitted successfully.";
   snackbarColor.value = "success";
   snackbar.value = true;
+
+  session.saveUser(currentUser);
+  updateUser(currentUser);
 };
 </script>
 

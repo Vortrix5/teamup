@@ -49,7 +49,7 @@ export class TestRepo {
     this.updatePersonalityTest(this.questions);
   }
 
-  static async updateUserTest(userId, test) {
+  static async updateUserTest(userId, test, personalityType,scores) {
     const q = query(collection(db, "users"), where("id", "==", userId));
     const querySnapshot = await getDocs(q);
     let docId = null;
@@ -59,7 +59,7 @@ export class TestRepo {
 
     if (docId) {
       const docRef = doc(db, "users", docId);
-      await setDoc(docRef, { personalityTest: JSON.parse(JSON.stringify(test)), testSubmitted: true }, { merge: true }); // Add testSubmitted: true
+      await setDoc(docRef, { personalityTest: JSON.parse(JSON.stringify(test)), personalityType, scores, testSubmitted: true }, { merge: true });
       const updatedUser = await getUserById(userId);
       session.login(updatedUser);
       console.log("User test updated in Firestore");
@@ -76,7 +76,8 @@ export class TestRepo {
     });
     return results;
   }
-  static getQuestionById(id) {
+  static async getQuestionById(id) {
+    if(this.questions.length === 0)  this.questions = await this.getPersonalityTest();
     return this.questions.find((question) => question.id === id);
   }
 }

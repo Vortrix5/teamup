@@ -2,7 +2,7 @@
   <v-container>
     <AddCourseModal v-if="getCurrentUser().role === 'admin' "/>
     <v-row style="padding: 10px; margin: 10px;">
-      <v-col md="4" v-for="(course, index) in courses" :key="index">
+      <v-col md="4" v-for="(course, index) in filteredCourses" :key="index">
         <v-card style="max-height: 600px">
           <v-card-actions class="justify-end">
             <v-menu>
@@ -21,7 +21,7 @@
               </v-list>
             </v-menu>
           </v-card-actions>
-          <v-img cover :lazy-src="course.imageLink" height="300px"></v-img>
+          <img :src="course.imageLink" height="300px" width="100%"/>
           <v-card-title>
             {{ course.name }}
           </v-card-title>
@@ -40,13 +40,31 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import {CourseRepo} from "@/repositories/CourseRepo";
-import AddCourseModal from "@/components/Dashboard/AddCourseModal.vue";
+import AddCourseModal from "@/components/Dashboard/Shared/AddCourseModal.vue";
 import {getCurrentUser} from "@/repositories/UserRepo";
 
 const courses = ref([]);
+const filteredCourses = ref([]);
+const testTaken = ref(false);
 
 onMounted(async () => {
+  filteredCourses.value = [];
   courses.value = await CourseRepo.getCourses();
+  const user = getCurrentUser();
+  if (user.role === 'employee') {
+    const testResults = await getCurrentUser().personalityType;
+    if (testResults) {
+      testTaken.value = true;
+      const personalityType = testResults;
+      console.log(courses.value)
+      console.log(personalityType)
+      filteredCourses.value = courses.value.filter(course => course.tags.includes(personalityType));
+      console.log(filteredCourses.value)
+    }
+  } else {
+    testTaken.value = true;
+    filteredCourses.value = courses.value;
+  }
 });
 
 const editCourse = () => {

@@ -68,6 +68,13 @@ export function getCurrentUser() {
   return session.getCurrentUser();
 }
 
+export function updateUser(user) {
+  const index = users.findIndex(u => u.id === user.id);
+  if (index !== -1) {
+    users[index] = user;
+  }
+}
+
 export function logout() {
   session.logout();
 }
