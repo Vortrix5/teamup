@@ -28,7 +28,7 @@
               <v-card>
                 <v-card-title>
                   Contact
-                </v-card-title>pl
+                </v-card-title>
                 <v-card-text>
                   <v-list >
                     <v-list-item>

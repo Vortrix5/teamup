@@ -4,7 +4,7 @@
     <v-row style="padding: 10px; margin: 10px;">
       <v-col md="4" v-for="(course, index) in filteredCourses" :key="index">
         <v-card style="max-height: 600px">
-          <v-card-actions class="justify-end">
+          <v-card-actions class="justify-end" v-if="getCurrentUser().role === 'admin' ">
             <v-menu>
               <template v-slot:activator="{ on, attrs }">
                 <v-btn v-bind="attrs" v-on="on" icon>
@@ -48,7 +48,6 @@ const filteredCourses = ref([]);
 const testTaken = ref(false);
 
 onMounted(async () => {
-  filteredCourses.value = [];
   courses.value = await CourseRepo.getCourses();
   const user = getCurrentUser();
   if (user.role === 'employee') {

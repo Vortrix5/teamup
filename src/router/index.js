@@ -6,8 +6,8 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
 })
 
-const authRoutes = [ '/manager','admin'];
-const roleRoutes = {  '/manager': 'manager', '/admin': 'admin'};
+const authRoutes = [];
+const roleRoutes = {};
 
 router.beforeEach((to, from, next) => {
   const currentUser = getCurrentUser();

@@ -1,8 +1,8 @@
 {
-  "name": "teamup",
+  "name": "TeamUp",
   "version": "0.0.0",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--no-warnings' vite",
+    "dev": "cross-env NODE_OPTIONS='--no-warnings' vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix --ignore-path .gitignore"
@@ -13,12 +13,10 @@
     "core-js": "^3.34.0",
     "emailjs-com": "^3.2.0",
     "firebase": "^10.11.0",
-    "firebaseui": "^6.1.0",
     "roboto-fontface": "*",
-    "uuidv4": "^6.2.13",
+    "uuid": "^9.0.1",
     "vue": "^3.3.0",
     "vue-chartjs": "^5.3.1",
-    "vuedraggable": "^4.1.0",
     "vuetify": "^3.0.0"
   },
   "devDependencies": {
@@ -31,7 +29,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.19.0",
-    "flowbite-vue": "^0.1.2",
     "pinia": "^2.1.0",
     "sass": "^1.69.0",
     "unplugin-auto-import": "^0.17.3",

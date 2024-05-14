@@ -37,6 +37,7 @@ export class CourseRepo {
   }
 
   static async getCourses() {
+    this.courses = [];
     const querySnapshot = await getDocs(collection(db, "courses"));
     querySnapshot.forEach((doc) => {
       this.courses.push(doc.data());

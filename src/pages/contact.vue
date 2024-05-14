@@ -1,6 +1,6 @@
 <template>
   <Navbar/>
-  <v-parallax lazy-src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="50vh">
+  <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="50vh">
 
     <v-card-text justify="center container" align-center>
       <h1 class="title">

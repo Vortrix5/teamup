@@ -1,6 +1,6 @@
 <template>
   <Navbar/>
-  <v-parallax lazy-src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="450px">
+  <v-parallax src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" height="450px">
     <v-card-text justify="center container">
       <h1 style="color: white;">
 
@@ -31,10 +31,11 @@
           training process. Join us in elevating team collaboration,
           productivity, and individual development
         </p>
+        <br>
         <v-img
           aligned="center"
           side="end"
-          :width="450"
+          :width="600"
           cover
           src="https://th.bing.com/th/id/OIF.Po3XOHdIJHkbWaqh7gcMUg?w=325&h=111&c=7&r=0&o=5&dpr=1.3&pid=1.7"
         ></v-img>

@@ -80,4 +80,21 @@ export class TestRepo {
     if(this.questions.length === 0)  this.questions = await this.getPersonalityTest();
     return this.questions.find((question) => question.id === id);
   }
+
+  static async resetUserTest(userId) {
+    const q = query(collection(db, "users"), where("id", "==", userId));
+    const querySnapshot = await getDocs(q);
+    let docId = null;
+    querySnapshot.forEach((doc) => {
+      docId = doc.id;
+    });
+
+    if (docId) {
+      const docRef = doc(db, "users", docId);
+      await setDoc(docRef, { testSubmitted: false }, { merge: true });
+      console.log("User test reset in Firestore");
+    } else {
+      console.log("No user found with the given userId");
+    }
+  }
 }

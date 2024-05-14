@@ -24,6 +24,7 @@
         <div v-else class="text-center">
           <h2 class="my-5 text-h4">The form was successfully filled. Please check the results tab to see your results.</h2>
           <v-btn color="primary" class="mx-auto" @click="$emit('goToResults')">Go to Results</v-btn>
+          <v-btn color="grey" class="mx-auto ml-3" @click="resetForm">Re-take test</v-btn> <!-- New Reset Form button -->
         </div>
       </v-card-text>
     </v-card>
@@ -89,6 +90,23 @@ const submitTest = async () => {
   session.saveUser(currentUser);
   updateUser(currentUser);
 };
+
+const resetForm = async () => {
+  const userObject = getCurrentUser();
+  const currentUser = new User(userObject.firstName, userObject.lastName, userObject.email, userObject.password, userObject.role, userObject.managerID);
+  currentUser.id = userObject.id; // Copy the id
+
+  currentUser.testSubmitted = false;
+  testSubmitted.value = false;
+
+  // Reset test in Firestore
+  await TestRepo.resetUserTest(currentUser.id);
+
+  // Update session
+  session.saveUser(currentUser);
+  updateUser(currentUser);
+};
+
 </script>
 
 <style scoped>
